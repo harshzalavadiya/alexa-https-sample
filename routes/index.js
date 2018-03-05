@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var http = require('http');
+var http = require('https');
 var cheerio = require('cheerio');
 
 var responseJSON = {
@@ -31,7 +31,7 @@ function checkGithub(req, res, next){
 		resp.on('data', function(chunk){
 			var $ = cheerio.load(chunk);
 			var lastStatus = $('#message-list').attr("data-last-known-status");
-			responseJSON.response.outputSpeech.ssml="<speak>according to status.github.com latest status was "+lastStatus+"</speak>"
+			responseJSON.response.outputSpeech.ssml="<speak>last status according to status.github.com was "+lastStatus+"</speak>"
 			res.send(responseJSON);
 		});
 	}).on("error", function(e){
